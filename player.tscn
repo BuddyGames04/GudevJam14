@@ -18,16 +18,17 @@ script = ExtResource("1_ytnra")
 
 [node name="Sprite2D2" type="Sprite2D" parent="Sunny"]
 texture = ExtResource("1_bakfb")
-hframes = 3
+hframes = 7
 
 [node name="Grim" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Grim"]
 texture = ExtResource("1_bakfb")
-hframes = 3
+hframes = 7
 frame = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
+visible = false
 zoom = Vector2(3, 3)
 
 [node name="SunnyCollision" type="CollisionShape2D" parent="."]

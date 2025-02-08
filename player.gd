@@ -57,7 +57,7 @@ func process_idle(delta):
 	if is_on_floor() and Input.is_action_just_pressed("jump"):
 		velocity.y = jump_force  # Apply jump force immediately
 		current_state = State.SUNNY_JUMPING if is_sunny else State.GRIM_JUMPING
-		print("jumping")
+		
 
 func process_moving(delta):
 	# Determine movement direction
@@ -77,7 +77,7 @@ func process_moving(delta):
 	if is_on_floor() and Input.is_action_just_pressed("jump"):
 		velocity.y = jump_force  # Apply jump force immediately
 		current_state = State.SUNNY_JUMPING if is_sunny else State.GRIM_JUMPING
-		print("jumping from moving")
+		
 
 func process_jumping(delta):
 	# Allow horizontal movement while jumping
