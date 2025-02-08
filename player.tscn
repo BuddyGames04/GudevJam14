@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://fohr8wguy27l"]
+
+[ext_resource type="Texture2D" uid="uid://bolh6d4bfcdbo" path="res://Assets/PlaceHolderGudev14.png" id="1_bakfb"]
+[ext_resource type="Script" path="res://player.gd" id="1_ytnra"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_khsby"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_luetf"]
+size = Vector2(17, 17)
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 6
+collision_mask = 9
+script = ExtResource("1_ytnra")
+
+[node name="Sunny" type="Node2D" parent="."]
+
+[node name="Sprite2D2" type="Sprite2D" parent="Sunny"]
+texture = ExtResource("1_bakfb")
+hframes = 3
+
+[node name="Grim" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Grim"]
+texture = ExtResource("1_bakfb")
+hframes = 3
+frame = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+
+[node name="SunnyCollision" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_khsby")
+
+[node name="GrimCollision" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0.5, 7.5)
+shape = SubResource("RectangleShape2D_luetf")

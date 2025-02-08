@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://bcchu3tk5jmxp"]
+
+[ext_resource type="PackedScene" uid="uid://fohr8wguy27l" path="res://player.tscn" id="1_ytemh"]
+[ext_resource type="Texture2D" uid="uid://bolh6d4bfcdbo" path="res://Assets/PlaceHolderGudev14.png" id="2_su5ht"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o8yk4"]
+texture = ExtResource("2_su5ht")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -3.75, -16, 16, 16, 16, 16, -16, -16, -16)
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_t3bbb"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 14
+sources/0 = SubResource("TileSetAtlasSource_o8yk4")
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_ytemh")]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_t3bbb")
+rendering_quadrant_size = 32
+format = 2
+layer_0/tile_data = PackedInt32Array(131070, 131072, 0, 131071, 131072, 0, 65536, 131072, 0, 65537, 131072, 0, 65538, 131072, 0, 65539, 131072, 0, 131069, 131072, 0)
