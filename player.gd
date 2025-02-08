@@ -48,6 +48,14 @@ func _physics_process(delta):
 
 	# Apply movement
 	move_and_slide()
+	
+	if position.y >= 500:
+		PlayerStats.damage_health(1)
+		
+	if PlayerStats.health <= 0:
+		$Timer.start()
+		get_tree().change_scene_to_file("res://deathscreen.tscn")
+	
 
 func process_idle(delta):
 	# Move or jump based on input

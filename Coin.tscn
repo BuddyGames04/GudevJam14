@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://c0px4aa74swbg"]
 
 [ext_resource type="Script" path="res://coin.gd" id="1_q6hyr"]
-[ext_resource type="Texture2D" uid="uid://bolh6d4bfcdbo" path="res://Assets/PlaceHolderGudev14.png" id="1_sqljd"]
+[ext_resource type="Texture2D" uid="uid://dyrk11w4sul0d" path="res://Assets/coin.png" id="2_0xnk8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f8eib"]
 size = Vector2(10, 10)
@@ -51,9 +51,7 @@ collision_mask = 6
 script = ExtResource("1_q6hyr")
 
 [node name="Sprite2D" type="Sprite2D" parent="Coin"]
-texture = ExtResource("1_sqljd")
-hframes = 7
-frame = 4
+texture = ExtResource("2_0xnk8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Coin"]
 visible = false

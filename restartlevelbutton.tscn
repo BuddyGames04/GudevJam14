@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://b34if5jwohm8v"]
+
+[ext_resource type="Script" path="res://restartlevelbutton.gd" id="1_wl4ii"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_jtkmr"]
+
+[node name="Button" type="Button"]
+text = "Restart level"
+icon = SubResource("CanvasTexture_jtkmr")
+script = ExtResource("1_wl4ii")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
