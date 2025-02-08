@@ -80,9 +80,19 @@ func process_moving(delta):
 		print("jumping from moving")
 
 func process_jumping(delta):
-	# Let the player fall naturally; jump force is already applied
+	# Allow horizontal movement while jumping
+	var direction = 0
+	if Input.is_action_pressed("right"):
+		direction += 1
+	if Input.is_action_pressed("left"):
+		direction -= 1
+
+	velocity.x = direction * speed
+
+	# Return to idle when landing
 	if is_on_floor():
 		current_state = State.SUNNY_IDLE if is_sunny else State.GRIM_IDLE
+
 
 func _input(event):
 	# Switch between Sunny and Grim
