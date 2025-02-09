@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dug5xtn8gky2o"]
+
+[ext_resource type="Script" path="res://breakable_wall.gd" id="1_g45gn"]
+[ext_resource type="Texture2D" uid="uid://dako6wn22upj6" path="res://Assets/breakable.png" id="2_v60w2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nfxix"]
+size = Vector2(30, 31)
+
+[node name="BreakableWall" type="Area2D"]
+script = ExtResource("1_g45gn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_v60w2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_nfxix")
