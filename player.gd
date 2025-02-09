@@ -63,6 +63,16 @@ func _physics_process(delta):
 	# Animations
 	if not is_sunny:
 		$Grim/AnimationPlayer.play("Idle")
+	else:
+		punch_area.position.x = 30 if facing_right else -30
+		if is_on_floor() and current_state == State.SUNNY_MOVING:
+			$Sunny/AnimationPlayer.play("Walk")
+			$AudioStreamPlayer2D.play()
+		elif current_state == State.SUNNY_IDLE:
+			$Sunny/AnimationPlayer.play("Idle")
+		elif not is_on_floor():
+			$Sunny/AnimationPlayer.play("JumpFall") 
+			
 
 func process_idle(delta):
 	# Move or jump based on input
@@ -73,7 +83,7 @@ func process_idle(delta):
 		velocity.y = jump_force  # Apply jump force immediately
 		current_state = State.SUNNY_JUMPING if is_sunny else State.GRIM_JUMPING
 
-	if is_sunny and Input.is_action_just_pressed("ui_attack"):  # Punch input
+	if is_sunny and Input.is_action_just_pressed("punch"):  # Punch input
 		current_state = State.SUNNY_PUNCHING
 		start_punch()
 
@@ -103,7 +113,7 @@ func process_moving(delta):
 
 	# Update punch area position
 	if is_sunny:
-		punch_area.position.x = 30 if facing_right else 0
+		$Sunny/PunchArea/CollisionShape2D.position.x = -15 if facing_right else 15
 
 	# Return to idle if no movement
 	if direction == 0:
@@ -133,16 +143,17 @@ func process_jumping(delta):
 		current_state = State.SUNNY_IDLE if is_sunny else State.GRIM_IDLE
 
 func process_punching(delta):
-	# Stay in punching state for a short time
-	pass  # Optional if punch duration is animation-dependent
+	# N/A
+	pass 
 
 func start_punch() -> void:
 	punch_area.monitoring = true  # Enable punch detection
-	$Sunny/Sprite2D.play("punch")  # Optional: Play punch animation
-	punch_area.position.x = 15.875 if facing_right else -15.875  # Adjust area position
-	await get_tree().create_timer(0.2).timeout  # Punch lasts for 0.2 seconds
+	$Sunny/AnimationPlayer.play("Punch")  # Play punch animation
+	await get_tree().create_timer(0.8).timeout  # Punch lasts for 0.2 seconds
+	
 	punch_area.monitoring = false  # Disable punch detection
 	current_state = State.SUNNY_IDLE
+
 
 
 func _input(event):

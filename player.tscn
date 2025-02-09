@@ -1,12 +1,128 @@
-[gd_scene load_steps=11 format=3 uid="uid://fohr8wguy27l"]
+[gd_scene load_steps=19 format=3 uid="uid://fohr8wguy27l"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_ytnra"]
-[ext_resource type="Texture2D" uid="uid://ceo38qwdpp3ii" path="res://Assets/bigplayeridle-sheet.png" id="2_emowv"]
+[ext_resource type="Texture2D" uid="uid://d1phnilecqtn5" path="res://Assets/bigplayerSPRITESHEET.png" id="2_b3ij1"]
 [ext_resource type="Script" path="res://punch_area.gd" id="3_01yuf"]
 [ext_resource type="Texture2D" uid="uid://visep5ipgvm5" path="res://Assets/littleplayer-sheet.png" id="3_8qgy1"]
+[ext_resource type="AudioStream" uid="uid://vngxlbj63bs3" path="res://Assets/sound/sndWalk.ogg" id="4_7rv2v"]
+[ext_resource type="AudioStream" uid="uid://bynqh0xcooy5h" path="res://Assets/sound/music.wav" id="6_f1ihq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hagjh"]
 size = Vector2(14.25, 36)
+
+[sub_resource type="Animation" id="Animation_lpya2"]
+resource_name = "Idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sunny/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.333333, 0.666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [4, 5, 6]
+}
+
+[sub_resource type="Animation" id="Animation_2784w"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sunny/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sunny/PunchArea/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_jm78m"]
+resource_name = "Walk"
+length = 0.7
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sunny/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [12, 13]
+}
+
+[sub_resource type="Animation" id="Animation_16j4d"]
+resource_name = "Punch"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sunny/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.266667, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sunny/PunchArea/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.266667, 0.766667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="Animation" id="Animation_h0y5d"]
+resource_name = "JumpFall"
+length = 0.55
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sunny/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.266667, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_umc0m"]
+_data = {
+"Idle": SubResource("Animation_lpya2"),
+"JumpFall": SubResource("Animation_h0y5d"),
+"Punch": SubResource("Animation_16j4d"),
+"RESET": SubResource("Animation_2784w"),
+"Walk": SubResource("Animation_jm78m")
+}
 
 [sub_resource type="Animation" id="Animation_eyair"]
 resource_name = "Idle"
@@ -53,16 +169,17 @@ size = Vector2(17, 17)
 
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(-3, 0)
-collision_layer = 0
-collision_mask = 25
+collision_layer = 6
+collision_mask = 217
 script = ExtResource("1_ytnra")
 
 [node name="Sunny" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Sunny"]
-texture = ExtResource("2_emowv")
+texture = ExtResource("2_b3ij1")
 hframes = 4
-frame = 3
+vframes = 4
+frame = 12
 
 [node name="PunchArea" type="Area2D" parent="Sunny"]
 collision_layer = 32
@@ -72,11 +189,17 @@ script = ExtResource("3_01yuf")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sunny/PunchArea"]
 position = Vector2(-15.875, 0)
 shape = SubResource("RectangleShape2D_hagjh")
+disabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sunny"]
+reset_on_save = false
 root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_umc0m")
+}
 
 [node name="Grim" type="Node2D" parent="."]
+visible = false
 position = Vector2(0, 8)
 
 [node name="Sprite2D" type="Sprite2D" parent="Grim"]
@@ -100,3 +223,11 @@ shape = SubResource("RectangleShape2D_khsby")
 visible = false
 position = Vector2(0.5, 7.5)
 shape = SubResource("RectangleShape2D_luetf")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_7rv2v")
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_f1ihq")
+autoplay = true
+stream_paused = true

@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=3 uid="uid://ds1i72xbff52f"]
+
+[ext_resource type="Script" path="res://goal.gd" id="1_1t2ta"]
+[ext_resource type="Texture2D" uid="uid://shqq155nraad" path="res://Assets/diamond.png" id="2_gggty"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f8eib"]
+size = Vector2(33, 32)
+
+[sub_resource type="Animation" id="Animation_yxv3q"]
+resource_name = "Coin"
+length = 2.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -10)]
+}
+
+[sub_resource type="Animation" id="Animation_4ces3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k11se"]
+_data = {
+"Coin": SubResource("Animation_yxv3q"),
+"RESET": SubResource("Animation_4ces3")
+}
+
+[node name="Goal" type="Area2D"]
+collision_mask = 6
+script = ExtResource("1_1t2ta")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_gggty")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_f8eib")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_k11se")
+}
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
