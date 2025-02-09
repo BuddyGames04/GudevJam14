@@ -1,54 +1,21 @@
 [gd_scene load_steps=7 format=3 uid="uid://b34if5jwohm8v"]
 
+[ext_resource type="Theme" uid="uid://c2r81gtyh2u7i" path="res://Assets/button.tres" id="1_ooyus"]
 [ext_resource type="Script" path="res://restartlevelbutton.gd" id="1_wl4ii"]
-
-[sub_resource type="Theme" id="Theme_pc4m7"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1251s"]
-bg_color = Color(0.215686, 0.619608, 0.501961, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0.909804, 0.337255, 0.537255, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1hy2p"]
-bg_color = Color(0.054902, 0.133333, 0.160784, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0.980392, 0.937255, 0.901961, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xkkpo"]
-bg_color = Color(0.215686, 0.619608, 0.501961, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0.980392, 0.937255, 0.901961, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
+[ext_resource type="StyleBox" uid="uid://dh3il6jeplol3" path="res://Assets/Hover.tres" id="2_6nbly"]
+[ext_resource type="StyleBox" uid="uid://bxwqtnmpesmn1" path="res://Assets/Pressed.tres" id="3_1k63h"]
+[ext_resource type="StyleBox" uid="uid://bxhbi3c48rm8s" path="res://Assets/Normal.tres" id="4_ubdis"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_jtkmr"]
 
-[node name="Button" type="Button"]
-theme = SubResource("Theme_pc4m7")
-theme_override_styles/hover = SubResource("StyleBoxFlat_1251s")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_1hy2p")
-theme_override_styles/normal = SubResource("StyleBoxFlat_xkkpo")
+[node name="ReloadButton" type="Button"]
+theme = ExtResource("1_ooyus")
+theme_override_styles/hover = ExtResource("2_6nbly")
+theme_override_styles/pressed = ExtResource("3_1k63h")
+theme_override_styles/normal = ExtResource("4_ubdis")
 text = "Restart level"
 icon = SubResource("CanvasTexture_jtkmr")
 script = ExtResource("1_wl4ii")
 
+[connection signal="button_up" from="." to="." method="_on_button_up"]
 [connection signal="pressed" from="." to="." method="_on_pressed"]

@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://cyx5ehrohe27p"]
+
+[ext_resource type="Texture2D" uid="uid://dako6wn22upj6" path="res://Assets/breakable.png" id="1_5ejyk"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w1pd8"]
+texture = ExtResource("1_5ejyk")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-15.9065, -0.472471, -15.434, 14.1741, 15.2765, 14.8041, 14.3316, -15.2765, -15.749, -14.9616)
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_xon5o"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 64
+physics_layer_0/collision_mask = 14
+sources/0 = SubResource("TileSetAtlasSource_w1pd8")
+
+[node name="TileMap3" type="TileMap"]
+tile_set = SubResource("TileSet_xon5o")
+rendering_quadrant_size = 32
+format = 2
+layer_0/tile_data = PackedInt32Array(-524251, 0, 0, -589787, 0, 0, -655323, 0, 0)

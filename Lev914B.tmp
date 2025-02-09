@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bcchu3tk5jmxp"]
+[gd_scene load_steps=19 format=3 uid="uid://bcchu3tk5jmxp"]
 
 [ext_resource type="PackedScene" uid="uid://fohr8wguy27l" path="res://player.tscn" id="1_ytemh"]
 [ext_resource type="Texture2D" uid="uid://bolh6d4bfcdbo" path="res://Assets/PlaceHolderGudev14.png" id="2_su5ht"]
@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c0px4aa74swbg" path="res://Coin.tscn" id="3_412gc"]
 [ext_resource type="PackedScene" uid="uid://cbml41s33jhob" path="res://Spike.tscn" id="5_1nmrj"]
 [ext_resource type="Texture2D" uid="uid://b02lreoqvlg3j" path="res://Assets/brick32.png" id="6_ehns5"]
-[ext_resource type="PackedScene" uid="uid://cyx5ehrohe27p" path="res://BrokenTiles.tscn" id="8_1557u"]
+[ext_resource type="Texture2D" uid="uid://dako6wn22upj6" path="res://Assets/breakable.png" id="8_vw2ub"]
 [ext_resource type="PackedScene" uid="uid://cd7cjl4dyo3e0" path="res://crate.tscn" id="9_y57b7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xhpw4"]
@@ -94,6 +94,21 @@ physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 14
 sources/0 = SubResource("TileSetAtlasSource_5x53v")
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w1pd8"]
+texture = ExtResource("8_vw2ub")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-15.9065, -0.472471, -15.434, 14.1741, 15.2765, 14.8041, 14.3316, -15.2765, -15.749, -14.9616)
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_xon5o"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 14
+sources/0 = SubResource("TileSetAtlasSource_w1pd8")
+
 [node name="Node2D" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_ytemh")]
@@ -150,7 +165,11 @@ position = Vector2(832, -136)
 [node name="Spike8" parent="Node2D2" instance=ExtResource("5_1nmrj")]
 position = Vector2(848, -136)
 
-[node name="TileMap3" parent="." instance=ExtResource("8_1557u")]
+[node name="TileMap3" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_xon5o")
+rendering_quadrant_size = 32
+format = 2
+layer_0/tile_data = PackedInt32Array(-524251, 0, 0, -589787, 0, 0, -655323, 0, 0)
 
 [node name="Crate" parent="." instance=ExtResource("9_y57b7")]
 position = Vector2(978, -256)

@@ -16,6 +16,9 @@ var speed = 200    # Default speed
 var jump_force = -400  # Jump impulse
 var sunny
 var grim
+var facing_right = true  # Tracks Sunny's facing direction
+
+@onready var punch_area = $Sunny/PunchArea  # Area2D for Sunny's punches
 
 func _ready():
 	sunny = get_node("Sunny")
@@ -39,6 +42,8 @@ func _physics_process(delta):
 			process_moving(delta)
 		State.SUNNY_JUMPING:
 			process_jumping(delta)
+		State.SUNNY_PUNCHING:
+			process_punching(delta)  # Handle punching state
 		State.GRIM_IDLE:
 			process_idle(delta)
 		State.GRIM_MOVING:
@@ -53,9 +58,11 @@ func _physics_process(delta):
 		PlayerStats.damage_health(1)
 		
 	if PlayerStats.health <= 0:
-		$Timer.start()
 		get_tree().change_scene_to_file("res://deathscreen.tscn")
-	
+
+	# Animations
+	if not is_sunny:
+		$Grim/AnimationPlayer.play("Idle")
 
 func process_idle(delta):
 	# Move or jump based on input
@@ -65,17 +72,38 @@ func process_idle(delta):
 	if is_on_floor() and Input.is_action_just_pressed("jump"):
 		velocity.y = jump_force  # Apply jump force immediately
 		current_state = State.SUNNY_JUMPING if is_sunny else State.GRIM_JUMPING
-		
+
+	if is_sunny and Input.is_action_just_pressed("ui_attack"):  # Punch input
+		current_state = State.SUNNY_PUNCHING
+		start_punch()
 
 func process_moving(delta):
 	# Determine movement direction
 	var direction = 0
 	if Input.is_action_pressed("right"):
 		direction += 1
+		facing_right = true  # Update facing direction
 	if Input.is_action_pressed("left"):
 		direction -= 1
+		facing_right = false  # Update facing direction
 
 	velocity.x = direction * speed
+
+	# Flip the sprite based on direction
+	if direction > 0:
+		if is_sunny:
+			sunny.get_node("Sprite2D").flip_h = true
+		else:
+			grim.get_node("Sprite2D").flip_h = true
+	elif direction < 0:
+		if is_sunny:
+			sunny.get_node("Sprite2D").flip_h = false
+		else:
+			grim.get_node("Sprite2D").flip_h = false
+
+	# Update punch area position
+	if is_sunny:
+		punch_area.position.x = 30 if facing_right else 0
 
 	# Return to idle if no movement
 	if direction == 0:
@@ -85,7 +113,10 @@ func process_moving(delta):
 	if is_on_floor() and Input.is_action_just_pressed("jump"):
 		velocity.y = jump_force  # Apply jump force immediately
 		current_state = State.SUNNY_JUMPING if is_sunny else State.GRIM_JUMPING
-		
+
+	if is_sunny and Input.is_action_just_pressed("punch"):  # Punch input
+		current_state = State.SUNNY_PUNCHING
+		start_punch()
 
 func process_jumping(delta):
 	# Allow horizontal movement while jumping
@@ -100,6 +131,18 @@ func process_jumping(delta):
 	# Return to idle when landing
 	if is_on_floor():
 		current_state = State.SUNNY_IDLE if is_sunny else State.GRIM_IDLE
+
+func process_punching(delta):
+	# Stay in punching state for a short time
+	pass  # Optional if punch duration is animation-dependent
+
+func start_punch() -> void:
+	punch_area.monitoring = true  # Enable punch detection
+	$Sunny/Sprite2D.play("punch")  # Optional: Play punch animation
+	punch_area.position.x = 15.875 if facing_right else -15.875  # Adjust area position
+	await get_tree().create_timer(0.2).timeout  # Punch lasts for 0.2 seconds
+	punch_area.monitoring = false  # Disable punch detection
+	current_state = State.SUNNY_IDLE
 
 
 func _input(event):

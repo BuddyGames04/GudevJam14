@@ -1,8 +1,49 @@
-[gd_scene load_steps=6 format=3 uid="uid://fohr8wguy27l"]
+[gd_scene load_steps=11 format=3 uid="uid://fohr8wguy27l"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_ytnra"]
 [ext_resource type="Texture2D" uid="uid://ceo38qwdpp3ii" path="res://Assets/bigplayeridle-sheet.png" id="2_emowv"]
+[ext_resource type="Script" path="res://punch_area.gd" id="3_01yuf"]
 [ext_resource type="Texture2D" uid="uid://visep5ipgvm5" path="res://Assets/littleplayer-sheet.png" id="3_8qgy1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hagjh"]
+size = Vector2(14.25, 36)
+
+[sub_resource type="Animation" id="Animation_eyair"]
+resource_name = "Idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.266667, 0.566667, 0.866667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_pr6el"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ealmf"]
+_data = {
+"Idle": SubResource("Animation_eyair"),
+"RESET": SubResource("Animation_pr6el")
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_khsby"]
 size = Vector2(28, 32)
@@ -18,9 +59,22 @@ script = ExtResource("1_ytnra")
 
 [node name="Sunny" type="Node2D" parent="."]
 
-[node name="Sprite2D2" type="Sprite2D" parent="Sunny"]
+[node name="Sprite2D" type="Sprite2D" parent="Sunny"]
 texture = ExtResource("2_emowv")
 hframes = 4
+frame = 3
+
+[node name="PunchArea" type="Area2D" parent="Sunny"]
+collision_layer = 32
+collision_mask = 64
+script = ExtResource("3_01yuf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sunny/PunchArea"]
+position = Vector2(-15.875, 0)
+shape = SubResource("RectangleShape2D_hagjh")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sunny"]
+root_node = NodePath("../..")
 
 [node name="Grim" type="Node2D" parent="."]
 position = Vector2(0, 8)
@@ -29,17 +83,20 @@ position = Vector2(0, 8)
 texture = ExtResource("3_8qgy1")
 hframes = 4
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Grim"]
+libraries = {
+"": SubResource("AnimationLibrary_ealmf")
+}
+
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(6, 6)
 
 [node name="SunnyCollision" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(2, 0)
 shape = SubResource("RectangleShape2D_khsby")
 
 [node name="GrimCollision" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0.5, 7.5)
 shape = SubResource("RectangleShape2D_luetf")
-
-[node name="Timer" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true

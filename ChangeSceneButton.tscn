@@ -1,0 +1,20 @@
+[gd_scene load_steps=7 format=3 uid="uid://b3cbo3a8vgg3r"]
+
+[ext_resource type="Theme" uid="uid://c2r81gtyh2u7i" path="res://Assets/button.tres" id="1_oe8f8"]
+[ext_resource type="StyleBox" uid="uid://dh3il6jeplol3" path="res://Assets/Hover.tres" id="2_d1sya"]
+[ext_resource type="StyleBox" uid="uid://bxwqtnmpesmn1" path="res://Assets/Pressed.tres" id="3_il5my"]
+[ext_resource type="StyleBox" uid="uid://bxhbi3c48rm8s" path="res://Assets/Normal.tres" id="4_7mpu1"]
+[ext_resource type="Script" path="res://change_scene_button.gd" id="5_mfuv0"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_jtkmr"]
+
+[node name="ChangeButton" type="Button"]
+theme = ExtResource("1_oe8f8")
+theme_override_styles/hover = ExtResource("2_d1sya")
+theme_override_styles/pressed = ExtResource("3_il5my")
+theme_override_styles/normal = ExtResource("4_7mpu1")
+text = "Main menu"
+icon = SubResource("CanvasTexture_jtkmr")
+script = ExtResource("5_mfuv0")
+
+[connection signal="button_up" from="." to="." method="_on_button_up"]

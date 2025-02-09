@@ -1,8 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bvcbkckrm4fvq"]
 
 [ext_resource type="PackedScene" uid="uid://b34if5jwohm8v" path="res://restartlevelbutton.tscn" id="1_ncbs6"]
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_jtkmr"]
+[ext_resource type="PackedScene" uid="uid://b3cbo3a8vgg3r" path="res://ChangeSceneButton.tscn" id="2_05d3s"]
 
 [node name="Deathscreen" type="Control"]
 layout_mode = 3
@@ -29,10 +28,8 @@ grow_vertical = 2
 [node name="Button" parent="VBoxContainer" instance=ExtResource("1_ncbs6")]
 layout_mode = 2
 
-[node name="Button2" type="Button" parent="VBoxContainer"]
+[node name="Button2" parent="VBoxContainer" instance=ExtResource("2_05d3s")]
 layout_mode = 2
-text = "Main menu"
-icon = SubResource("CanvasTexture_jtkmr")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
