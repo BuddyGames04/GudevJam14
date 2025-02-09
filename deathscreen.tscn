@@ -35,9 +35,16 @@ text = "Main menu"
 icon = SubResource("CanvasTexture_jtkmr")
 
 [node name="Label" type="Label" parent="."]
-layout_mode = 0
-offset_left = 552.0
-offset_top = 224.0
-offset_right = 593.0
-offset_bottom = 247.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.346
+anchor_right = 0.514
+anchor_bottom = 0.358
+offset_left = -16.0
+offset_top = -16.208
+offset_right = 8.87201
+offset_bottom = -0.984009
+grow_horizontal = 2
+grow_vertical = 2
 text = "Dead"

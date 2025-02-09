@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://cd7cjl4dyo3e0"]
+
+[ext_resource type="Texture2D" uid="uid://bsadngqldjeui" path="res://Assets/crate.png" id="1_ipris"]
+[ext_resource type="Script" path="res://crate.gd" id="1_ovr2q"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_add5k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_td24j"]
+size = Vector2(62, 63)
+
+[node name="Crate" type="RigidBody2D"]
+collision_layer = 16
+collision_mask = 7
+mass = 1000.0
+physics_material_override = SubResource("PhysicsMaterial_add5k")
+linear_damp = 8.0
+angular_damp = 15.0
+script = ExtResource("1_ovr2q")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ipris")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_td24j")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_td24j")

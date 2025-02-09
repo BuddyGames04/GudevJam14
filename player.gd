@@ -48,7 +48,7 @@ func _physics_process(delta):
 
 	# Apply movement
 	move_and_slide()
-	
+
 	if position.y >= 500:
 		PlayerStats.damage_health(1)
 		
@@ -118,10 +118,16 @@ func set_form(sunny_active):
 	sunny.visible = is_sunny
 	grim.visible = not is_sunny
 
-	# Update movement parameters for each form
+	# Update collision layers and masks
 	if is_sunny:
+		collision_layer = 3  # Big player layer
+		collision_mask = 5   # Interact with crate
 		speed = 100
 		jump_force = -300
+		PlayerStats.playerState = true
 	else:
+		collision_layer = 2  # Small player layer
+		collision_mask = 5   # Interact with crate
 		speed = 150
 		jump_force = -400
+		PlayerStats.playerState = false

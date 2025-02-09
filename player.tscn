@@ -1,26 +1,26 @@
 [gd_scene load_steps=6 format=3 uid="uid://fohr8wguy27l"]
 
-[ext_resource type="Texture2D" uid="uid://bolh6d4bfcdbo" path="res://Assets/PlaceHolderGudev14.png" id="1_bakfb"]
 [ext_resource type="Script" path="res://player.gd" id="1_ytnra"]
+[ext_resource type="Texture2D" uid="uid://ceo38qwdpp3ii" path="res://Assets/bigplayeridle-sheet.png" id="2_emowv"]
 [ext_resource type="Texture2D" uid="uid://visep5ipgvm5" path="res://Assets/littleplayer-sheet.png" id="3_8qgy1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_khsby"]
-size = Vector2(32, 32)
+size = Vector2(28, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_luetf"]
 size = Vector2(17, 17)
 
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(-3, 0)
-collision_layer = 6
-collision_mask = 9
+collision_layer = 0
+collision_mask = 25
 script = ExtResource("1_ytnra")
 
 [node name="Sunny" type="Node2D" parent="."]
 
 [node name="Sprite2D2" type="Sprite2D" parent="Sunny"]
-texture = ExtResource("1_bakfb")
-hframes = 7
+texture = ExtResource("2_emowv")
+hframes = 4
 
 [node name="Grim" type="Node2D" parent="."]
 position = Vector2(0, 8)
@@ -33,6 +33,7 @@ hframes = 4
 zoom = Vector2(6, 6)
 
 [node name="SunnyCollision" type="CollisionShape2D" parent="."]
+position = Vector2(2, 0)
 shape = SubResource("RectangleShape2D_khsby")
 
 [node name="GrimCollision" type="CollisionShape2D" parent="."]
