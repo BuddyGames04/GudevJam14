@@ -1,6 +1,7 @@
 extends Control
 
 # The integer you want to display
+#Test
 
 
 # Reference to the Label node
